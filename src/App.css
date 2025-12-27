@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+ */
+.App {
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.movie-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+

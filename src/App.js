@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
 import MovieCard from "./components/MovieCard";
+import { fetchPopularMovies } from "./api";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.results) {
-          setMovies(data.results);
-        }
+    const loadMovies = async () => {
+      setLoading(true);
+      try {
+        const moviesData = await fetchPopularMovies();
+        setMovies(moviesData);
+      } catch (error) {
+        console.error("Failed to load movies:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-        setLoading(false);
-      });
+      }
+    };
+
+    loadMovies();
   }, []);
 
   return (
